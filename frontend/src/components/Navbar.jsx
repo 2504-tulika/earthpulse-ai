@@ -2,9 +2,11 @@ import { IconGlobe } from './icons'
 
 export default function Navbar({ view, setView }) {
   const links = [
-    { label: 'Dashboard', key: 'dashboard' },
-    { label: 'Map',       key: 'map' },
-  ]
+  { label: 'Dashboard', key: 'dashboard' },
+  { label: 'Map',       key: 'map' },
+  { label: 'Compare',   key: 'compare' },
+  { label: 'Forecast',  key: 'forecast' },
+]
 
   return (
     <nav style={{
@@ -59,16 +61,6 @@ export default function Navbar({ view, setView }) {
             fontFamily: 'Inter, sans-serif',
           }}>
             {label}
-          </button>
-        ))}
-        {['Compare', 'Forecast'].map(item => (
-          <button key={item} style={{
-            padding: '6px 14px', borderRadius: '8px',
-            border: 'none', background: 'transparent',
-            color: '#2d3f55', fontSize: '0.85rem',
-            cursor: 'not-allowed', fontFamily: 'Inter, sans-serif',
-          }}>
-            {item}
           </button>
         ))}
       </div>

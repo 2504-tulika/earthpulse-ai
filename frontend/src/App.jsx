@@ -8,6 +8,7 @@ import ForecastChart from './components/ForecastChart'
 import MapView from './components/Map'
 import { getCitySummary } from './services/api'
 import { IconPin, IconSearch } from './components/icons'
+import Compare from './components/Compare'
 
 const QUICK_CITIES = ['Delhi', 'Mumbai', 'Bengaluru', 'London', 'Tokyo', 'New York']
 const CITY_TABS = ['Overview', 'AI Insight', 'Risk Score', 'Forecast']
@@ -47,7 +48,7 @@ export default function App() {
         {view === 'map' && <MapView />}
 
         {/* COMPARE VIEW */}
-        {view === 'compare' && <ComparePlaceholder />}
+        {view === 'compare' && <Compare />}
 
         {/* FORECAST VIEW */}
         {view === 'forecast' && <ForecastPlaceholder />}
@@ -270,26 +271,6 @@ export default function App() {
           </>
         )}
       </main>
-    </div>
-  )
-}
-
-function ComparePlaceholder() {
-  return (
-    <div style={{
-      textAlign: 'center', padding: '5rem 2rem',
-      border: '1px dashed rgba(255,255,255,0.05)',
-      borderRadius: '20px',
-    }}>
-      <div style={{
-        fontSize: '1.5rem', fontWeight: 700,
-        background: 'linear-gradient(90deg, #38bdf8, #34d399)',
-        WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-        marginBottom: '0.5rem',
-      }}>
-        City Comparison
-      </div>
-      <p style={{ color: '#334155', fontSize: '0.875rem' }}>Coming soon — compare AQI, weather & risk across multiple cities</p>
     </div>
   )
 }
