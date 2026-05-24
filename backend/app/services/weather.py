@@ -77,7 +77,6 @@ async def get_aqi(city: str) -> dict:
 async def get_city_summary(city: str) -> dict:
     async with httpx.AsyncClient() as client:
 
-        # Get weather
         weather_response = await client.get(
             f"{OPENWEATHER_BASE}/weather",
             params={
@@ -92,7 +91,6 @@ async def get_city_summary(city: str) -> dict:
         lat = weather_data["coord"]["lat"]
         lon = weather_data["coord"]["lon"]
 
-        # Get AQI using coordinates
         aqi_response = await client.get(
             f"{WAQI_BASE}/feed/geo:{lat};{lon}/",
             params={"token": settings.WAQI_API_KEY}
@@ -101,6 +99,16 @@ async def get_city_summary(city: str) -> dict:
         aqi_data = aqi_response.json()
 
         aqi_value = aqi_data["data"]["aqi"] if aqi_data["status"] == "ok" else None
+        dominant_pollutant = aqi_data["data"].get("dominentpol", "pm25") if aqi_data["status"] == "ok" else "pm25"
+
+        # Calculate risk score
+        from app.services.risk_score import calculate_risk_score
+        risk = calculate_risk_score(
+            aqi=aqi_value or 0,
+            temperature=weather_data["main"]["temp"],
+            humidity=weather_data["main"]["humidity"],
+            dominant_pollutant=dominant_pollutant,
+        )
 
         return {
             "city": weather_data["name"],
@@ -117,8 +125,9 @@ async def get_city_summary(city: str) -> dict:
             "aqi": {
                 "value": aqi_value,
                 "level": get_aqi_level(aqi_value) if aqi_value else "Unknown",
-                "dominant_pollutant": aqi_data["data"].get("dominentpol", "unknown") if aqi_data["status"] == "ok" else "unknown",
-            }
+                "dominant_pollutant": dominant_pollutant,
+            },
+            "risk_score": risk,
         }
 
 def get_aqi_level(aqi: int) -> str:
@@ -128,3 +137,4 @@ def get_aqi_level(aqi: int) -> str:
     if aqi <= 200:  return "Unhealthy"
     if aqi <= 300:  return "Very Unhealthy"
     return "Hazardous"
+

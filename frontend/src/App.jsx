@@ -6,6 +6,7 @@ import CityCard from './components/CityCard'
 import MapView from './components/Map'
 import { getCitySummary } from './services/api'
 import ForecastChart from './components/ForecastChart'
+import RiskScore from './components/RiskScore'
 
 const QUICK_CITIES = ['Delhi', 'Mumbai', 'Bengaluru', 'London', 'Tokyo', 'New York']
 
@@ -129,6 +130,7 @@ export default function App() {
             )}
 
             {cityData && <CityCard data={cityData} />}
+            {cityData && <RiskScore data={cityData} />}
             {cityData && <ForecastChart city={cityData.city} />}
 
             {/* Empty state */}
