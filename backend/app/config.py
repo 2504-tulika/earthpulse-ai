@@ -5,6 +5,7 @@ class Settings(BaseSettings):
     SYNC_DATABASE_URL: str
     OPENWEATHER_API_KEY: str = ""
     WAQI_API_KEY: str = ""
+    GROQ_API_KEY: str = ""
 
     class Config:
         env_file = ".env"

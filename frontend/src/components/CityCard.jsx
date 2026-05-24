@@ -71,17 +71,7 @@ export default function CityCard({ data }) {
   const { Icon: AqiIcon } = cfg
 
   return (
-    <div style={{
-      background: 'rgba(255,255,255,0.03)',
-      backdropFilter: 'blur(20px)',
-      WebkitBackdropFilter: 'blur(20px)',
-      borderRadius: '20px',
-      border: '1px solid rgba(255,255,255,0.08)',
-      overflow: 'hidden',
-      marginBottom: '1.5rem',
-      boxShadow: `0 0 40px ${cfg.gradient}`,
-      animation: 'fadeSlideIn 0.4s ease',
-    }}>
+    <div>
       <style>{`
         @keyframes fadeSlideIn {
           from { opacity: 0; transform: translateY(16px); }

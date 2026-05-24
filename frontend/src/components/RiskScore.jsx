@@ -66,15 +66,7 @@ export default function RiskScore({ data }) {
   const { score, level, color, breakdown } = data.risk_score
 
   return (
-    <div style={{
-      background: 'rgba(255,255,255,0.02)',
-      border: '1px solid rgba(255,255,255,0.07)',
-      borderRadius: '16px',
-      padding: '1.25rem',
-      marginBottom: '1.5rem',
-      backdropFilter: 'blur(10px)',
-      animation: 'fadeSlideIn 0.4s ease',
-    }}>
+    <div >
       <style>{`
         @keyframes fadeSlideIn {
           from { opacity: 0; transform: translateY(12px); }

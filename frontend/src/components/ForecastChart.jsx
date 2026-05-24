@@ -26,14 +26,7 @@ const CustomTooltip = ({ active, payload, label }) => {
   const aqi = payload[0]?.value
   const color = getAQIColor(aqi)
   return (
-    <div style={{
-      background: 'rgba(15,23,42,0.95)',
-      border: `1px solid ${color}40`,
-      borderRadius: '10px',
-      padding: '0.75rem 1rem',
-      fontFamily: 'Inter, sans-serif',
-      backdropFilter: 'blur(10px)',
-    }}>
+    <div>
       <p style={{ color: '#64748b', fontSize: '0.72rem', marginBottom: '4px' }}>{label}</p>
       <p style={{ color, fontWeight: 700, fontSize: '1.1rem' }}>AQI {Math.round(aqi)}</p>
       <p style={{ color: '#64748b', fontSize: '0.72rem', marginTop: '2px' }}>
@@ -49,15 +42,19 @@ export default function ForecastChart({ city }) {
   const [error, setError] = useState(null)
   const [range, setRange] = useState(24)
 
-  useEffect(() => {
-    if (!city) return
+ useEffect(() => {
+  if (!city) return
+  const fetchForecast = () => {
     setLoading(true)
     setError(null)
+    setData(null)
     fetch(`http://localhost:8000/api/v1/predict/${city}?hours=72`)
       .then(r => r.json())
       .then(json => { setData(json); setLoading(false) })
       .catch(() => { setError('Prediction unavailable'); setLoading(false) })
-  }, [city])
+  }
+  fetchForecast()
+}, [city])
 
   if (!city) return null
 
