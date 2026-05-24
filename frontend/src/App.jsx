@@ -10,6 +10,7 @@ import { getCitySummary } from './services/api'
 import { IconPin, IconSearch } from './components/icons'
 import Compare from './components/Compare'
 import Forecast from './components/Forecast'
+import Hero from './components/Hero'
 
 const QUICK_CITIES = ['Delhi', 'Mumbai', 'Bengaluru', 'London', 'Tokyo', 'New York']
 const CITY_TABS = ['Overview', 'AI Insight', 'Risk Score', 'Forecast']
@@ -21,8 +22,10 @@ export default function App() {
   const [activeCity, setActiveCity] = useState(null)
   const [view, setView] = useState('dashboard')
   const [cityTab, setCityTab] = useState('Overview')
+  const [showHero, setShowHero] = useState(true)
 
   const handleSearch = async (city) => {
+    setShowHero(false)
     setLoading(true)
     setError(null)
     setCityData(null)
@@ -55,7 +58,14 @@ export default function App() {
         {view === 'forecast' && <Forecast />}
 
         {/* DASHBOARD VIEW */}
-        {view === 'dashboard' && (
+        {view === 'dashboard' && showHero && (
+        <Hero
+          onExplore={() => setShowHero(false)}
+          onMap={() => { setShowHero(false); setView('map') }}
+        />
+)}
+
+        {view === 'dashboard' && !showHero && (
           <>
             {/* Hero */}
             <div style={{ marginBottom: '1.75rem' }}>
@@ -272,26 +282,6 @@ export default function App() {
           </>
         )}
       </main>
-    </div>
-  )
-}
-
-function ForecastPlaceholder() {
-  return (
-    <div style={{
-      textAlign: 'center', padding: '5rem 2rem',
-      border: '1px dashed rgba(255,255,255,0.05)',
-      borderRadius: '20px',
-    }}>
-      <div style={{
-        fontSize: '1.5rem', fontWeight: 700,
-        background: 'linear-gradient(90deg, #38bdf8, #34d399)',
-        WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-        marginBottom: '0.5rem',
-      }}>
-        72h Forecast
-      </div>
-      <p style={{ color: '#334155', fontSize: '0.875rem' }}>Coming soon — dedicated AQI forecast page for any city</p>
     </div>
   )
 }

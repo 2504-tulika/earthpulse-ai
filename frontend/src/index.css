@@ -42,3 +42,15 @@ body::before {
 @media (max-width: 600px) {
   html { font-size: 14px; }
 }
+
+@media (max-width: 640px) {
+  nav { padding: 0 1rem !important; }
+  nav span:first-of-type { font-size: 0.95rem !important; }
+  main { padding: 1.25rem 0.875rem !important; }
+  h1 { font-size: 1.75rem !important; }
+  h2 { font-size: 1.4rem !important; }
+}
+
+@media (max-width: 480px) {
+  .compare-grid { grid-template-columns: 1fr !important; }
+}
