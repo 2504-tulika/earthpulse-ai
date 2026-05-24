@@ -7,6 +7,7 @@ from app.database import engine, Base
 from app.models import CitySnapshot
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.interval import IntervalTrigger
+from app.api.predict import router as predict_router
 
 app = FastAPI(
     title="EarthPulse AI",
@@ -23,6 +24,7 @@ app.add_middleware(
 
 app.include_router(weather_router)
 app.include_router(cities_router)
+app.include_router(predict_router)
 
 scheduler = AsyncIOScheduler()
 
