@@ -9,6 +9,7 @@ import MapView from './components/Map'
 import { getCitySummary } from './services/api'
 import { IconPin, IconSearch } from './components/icons'
 import Compare from './components/Compare'
+import Forecast from './components/Forecast'
 
 const QUICK_CITIES = ['Delhi', 'Mumbai', 'Bengaluru', 'London', 'Tokyo', 'New York']
 const CITY_TABS = ['Overview', 'AI Insight', 'Risk Score', 'Forecast']
@@ -51,7 +52,7 @@ export default function App() {
         {view === 'compare' && <Compare />}
 
         {/* FORECAST VIEW */}
-        {view === 'forecast' && <ForecastPlaceholder />}
+        {view === 'forecast' && <Forecast />}
 
         {/* DASHBOARD VIEW */}
         {view === 'dashboard' && (
