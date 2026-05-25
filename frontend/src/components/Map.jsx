@@ -61,7 +61,8 @@ export default function MapView() {
     const fetchAll = async () => {
       try {
         // Try cache first — instant!
-        const res = await fetch('http://localhost:8000/api/v1/cities/snapshot')
+        const BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+        const res = await fetch(`${BASE}/api/v1/cities/snapshot`)
         const json = await res.json()
 
         if (json.cached && json.cities.length > 0) {

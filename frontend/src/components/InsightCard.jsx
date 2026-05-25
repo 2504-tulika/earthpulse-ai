@@ -11,7 +11,7 @@ export default function InsightCard({ city }) {
     setLoading(true)
     setError(null)
     setInsight(null)
-    fetch(`http://localhost:8000/api/v1/insight/${city}`)
+    fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/v1/insight/${city}`)
       .then(r => r.json())
       .then(data => { setInsight(data); setLoading(false) })
       .catch(() => { setError('Insight unavailable'); setLoading(false) })

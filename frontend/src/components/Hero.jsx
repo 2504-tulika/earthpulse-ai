@@ -74,7 +74,8 @@ export default function Hero({ onExplore, onMap }) {
       const updated = await Promise.all(
         LIVE_CITIES.map(async (c) => {
           try {
-            const res = await fetch(`http://localhost:8000/api/v1/city/${c.city}`)
+            const BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+            const res = await fetch(`${BASE}/api/v1/city/${c.city}`)
             const data = await res.json()
             return { ...c, aqi: data.aqi?.value }
           } catch {

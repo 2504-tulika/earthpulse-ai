@@ -48,7 +48,7 @@ export default function ForecastChart({ city }) {
     setLoading(true)
     setError(null)
     setData(null)
-    fetch(`http://localhost:8000/api/v1/predict/${city}?hours=72`)
+    fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/v1/predict/${city}?hours=72`)
       .then(r => r.json())
       .then(json => { setData(json); setLoading(false) })
       .catch(() => { setError('Prediction unavailable'); setLoading(false) })

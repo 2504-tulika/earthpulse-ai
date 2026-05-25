@@ -59,7 +59,8 @@ export default function Forecast() {
     setData(null)
     setActiveCity(cityName)
     try {
-      const res = await fetch(`http://localhost:8000/api/v1/predict/${cityName}?hours=72`)
+      const BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+      const res = await fetch(`${BASE}/api/v1/predict/${cityName}?hours=72`)
       const json = await res.json()
       if (json.detail) throw new Error(json.detail)
       setData(json)
